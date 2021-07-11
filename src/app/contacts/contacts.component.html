@@ -1,0 +1,218 @@
+<div class="container">
+    <div class="card">
+
+        <div class="card-header">
+            <div class="col-md-6">
+
+                <form [formGroup]="formnew">
+                    <div class="form-group">
+                        <label for="exampleInputemail1">name </label>
+
+                        <input type="name" formControlName="name" class="form-control" id="exampleInputemail1"
+                            aria-describedby="emailHelp">
+
+                        <div
+                            *ngIf="formnew.controls.name.invalid && (formnew.controls.name.dirty || formnew.controls.name.touched)">
+
+                            <small class="formnew-text text-danger" *ngIf="formnew.controls.name.errors.required">
+                                required email</small>
+
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputemail1">phone</label>
+
+                        <input type="text" formControlName="phone" class="form-control" id="exampleInputemail1"
+                            aria-describedby="emailHelp">
+
+                        <div
+                            *ngIf="formnew.controls.phone.invalid && (formnew.controls.phone.dirty || formnew.controls.phone.touched)">
+
+                            <small class="formnew-text text-danger" *ngIf="formnew.controls.phone.errors.required">
+                                required phone</small>
+
+                            <small class="formnew-text text-danger" *ngIf="formnew.controls.phone.errors.pattern">
+                                required numbers only</small>
+
+
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputemail1">notes</label>
+
+                        <input type="text" formControlName="notes" class="form-control" id="exampleInputemail1"
+                            aria-describedby="emailHelp">
+
+                        <div
+                            *ngIf="formnew.controls.notes.invalid && (formnew.controls.notes.dirty || formnew.controls.notes.touched)">
+
+                            <small class="formnew-text text-danger" *ngIf="formnew.controls.notes.errors.required">
+                                required notes</small>
+
+
+
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputpasswordword1">address</label>
+                        <input type="text" formControlName="address" class="form-control" id="exampleInputemail1">
+                        <div
+                            *ngIf="(formnew.controls.address.invalid && (formnew.controls.address.dirty || formnew.controls.address.touched))  ">
+                            <small class="formnew-text text-danger" *ngIf="formnew.controls.address.errors.required">
+                                required address</small>
+
+
+
+                        </div>
+
+                    </div>
+
+                    <button type="submit" (click)="addcontacts()" [disabled]="formnew.invalid"
+                        class="btn btn-primary">add </button>
+
+                </form>
+
+
+            </div>
+
+
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name </th>
+                    <th scope="col">adress</th>
+                    <th scope="col">phone</th>
+                    <th scope="col">notes</th>
+                    <th scope="col">delete</th>
+                    <th scope="col">edit</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let contacts of contacts ;let x=index">
+                    <td>{{x+1}}</td>
+                    <th scope="col">{{ contacts.Name}} </th>
+                    <th scope="col">{{contacts.Address}}</th>
+                    <th scope="col">{{contacts.Phone}}</th>
+                    <th scope="col">{{contacts.Notes}}</th>
+                    <th scope="col">
+
+                        <button type="button" class="btn btn-danger btn-lg" (click)="openModaldel()">delete</button>
+                        <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displaydel}">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">delete</h4>
+                                        <button type="button" class="close" aria-label="Close"
+                                            (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure to delete?</p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" (click)="delete(x)">yes</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                            (click)="onCloseHandled()">no</button>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                    <th scope="col"><button type="button" class="btn btn-primary btn-lg"
+                            (click)="openModal()">Edit</button>
+                    </th>
+                    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title"></h4>
+                                    <button type="button" class="close" aria-label="Close"
+                                        (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form [formGroup]="form">
+                                        <div class="form-group">
+                                            <label for="exampleInputemail1">name </label>
+
+                                            <input type="name" formControlName="name" class="form-control"
+                                                id="exampleInputemail1" aria-describedby="emailHelp">
+
+                                            <div
+                                                *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)">
+
+                                                <small class="form-text text-danger"
+                                                    *ngIf="form.controls.name.errors.required"> required name</small>
+
+
+
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="exampleInputemail1">notes</label>
+
+                                            <input type="text" formControlName="notes" class="form-control"
+                                                id="exampleInputemail1" aria-describedby="emailHelp">
+
+                                            <div
+                                                *ngIf="form.controls.notes.invalid && (form.controls.notes.dirty || form.controls.notes.touched)">
+
+                                                <small class="form-text text-danger"
+                                                    *ngIf="form.controls.notes.errors.required"> required notes</small>
+
+
+
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputpasswordword1">address</label>
+                                            <input type="text" formControlName="address" class="form-control"
+                                                id="exampleInputemail1">
+                                            <div
+                                                *ngIf="(form.controls.address.invalid && (form.controls.address.dirty || form.controls.address.touched))  ">
+                                                <small class="form-text text-danger"
+                                                    *ngIf="form.controls.address.errors.required"> required
+                                                    address</small>
+
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <button type="submit" (click)="onSubmit(x)" [disabled]="form.invalid"
+                                            class="btn btn-primary">Submit</button>
+
+                                    </form>
+
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
